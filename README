@@ -1,0 +1,42 @@
+# clojurescript-devmode
+
+A development mode for ClojureScript. 
+
+## Usage
+
+Follow the Quick Start Guide of ClojureScript: https://github.com/clojure/clojurescript/wiki/Quick-Start (the bootstrap step is required)
+
+After bootstrapping ClojureScript get cljs-devmode:
+git clone git@github.com:maxweber/cljs-devmode.git
+
+In the cljs-devmode folder invoke:
+lein cljs-devmode $CLOJURESCRIPT_HOME
+
+If you havn't set the $CLOJURESCRIPT_HOME environment variable yet, then use the full path to your ClojureScript installation.
+
+The cljs-devmode leiningen plugin copies all necessary jar files into the lib folder of $CLOJURESCRIPT_HOME to make this development mode work.
+
+To run the hello sample of ClojureScript in development mode do the following: 
+- Start the ./script/repl in the $CLOJURESCRIPT_HOME folder.
+- Then invoke this lines on the REPL:
+
+  (require '[cljs.closure :as cljsc])
+  (defn compile-fn [] (cljsc/build "samples/hello/src" 
+                                   {:output-dir "samples/hello/out"
+                                    :output-to "samples/hello/hello.js"}))
+  (use 'cljs-devmode.core)
+  (start-devmode "samples/hello" compile-fn)
+
+- This brings up a Jetty server on port 9090, so open http://localhost:9090/hello-dev.html to see the hello sample of Clojure Script.
+- On every request cljs-devmode checks, if any .cljs file inside samples/hello has changed. In the case of a change the above defined compile-fn is invoked.
+- So change the greeting message inside samples/hello/src/hello/core.cljs. When you refresh the http://localhost:9090/hello-dev.html you will see the new greeting message.
+
+## TODOs
+
+This is a really primitive prototype for a ClojureScript development mode. I only wrote it to get started with ClojureScript in one of my Clojure web applications. There should be a Ring middleware which forward the .js file request form my web application on localhost:8080 to the ClojureScript server on localhost:9090 transparently, so that there is no need to adapt the paths of the .js file, when you are in the ClojureScript development mode.
+
+## License
+
+Copyright (C) 2011 Maximilian Weber
+
+Distributed under the Eclipse Public License, the same as Clojure.
