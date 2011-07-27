@@ -110,7 +110,7 @@ structure of the ClojureScript samples. The :cljs-devmode entry can
 also be leveraged to pass additional parameters to the ClojureScript
 compiler. As you can see in the above example the :output-dir and
 :output-to entries are settings for the ClojureScript compiler, every
-addtional map entry will also be passed to the ClojureScript compiler.
+additional map entry will also be passed to the ClojureScript compiler.
 
 
 ## TODOs
