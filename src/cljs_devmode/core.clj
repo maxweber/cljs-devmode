@@ -57,6 +57,9 @@
 
 (def server nil)
 
+(defn devmode [dir compile-fn]
+     (run-jetty (app dir compile-fn) {:port 9090}))
+
 (defn start-devmode [dir compile-fn]
   (alter-var-root (var server)
                   (fn [v]
