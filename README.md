@@ -36,6 +36,7 @@ following:
 * Start the ./script/repl in the $CLOJURESCRIPT_HOME folder. 
 * Then invoke this lines on the REPL:
 
+<pre>
     (require '[cljs.closure :as cljsc]) 
     (defn compile-fn []
           (cljsc/build "samples/hello/src" 
@@ -43,6 +44,7 @@ following:
                         :output-to "samples/hello/hello.js"})) 
     (use 'cljs-devmode.core)
     (start-devmode "samples/hello" compile-fn)
+</pre>
 
 * This brings up a Jetty server on port 9090, so open
   http://localhost:9090/hello-dev.html to see the hello sample of
@@ -126,9 +128,9 @@ compiler and the devmode via:
 But then you will not see the output (stdout and stderr) of the
 ClojureScript compiler and therefore you cannot read the helpful error
 messages of the ClojureScript compiler.  Nevertheless there is no
-automated way yet, to do a switch to "production mode" (e.g. invoke
-the Google Closure Compiler in advanced mode and move the js file to
-the public/cljs folder).
+automated way to do a switch to "production mode" yet (e.g. invoke the
+Google Closure Compiler in advanced mode and move the resulting js
+file to the public/cljs folder).
 
 ## License
 
