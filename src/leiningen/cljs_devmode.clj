@@ -39,20 +39,23 @@
     (.exists cljsc-bin)))
 
 (defn check-clojurescript-home-param [clojurescript-home]
-  (if-not clojurescript-home
-    "Error: Please provide the ClojureScript home path as first argument."
-    (when-not (is-clojurescript-home? clojurescript-home)
-      (str "Error: The given ClojureScript home path '"
-           clojurescript-home
-           "' is not a ClojureScript installation "
-           "(" cljsc-bin-path " is missing.)"))))
+  (binding [*out* *err*]
+    (let [clojurescript-home (or clojurescript-home (get (System/getenv) "CLOJURESCRIPT_HOME"))]
+      (cond (not clojurescript-home)
+            (println "Error: Please provide the ClojureScript home path as the last command line argument or via CLOJURESCRIPT_HOME.")
+            (not (is-clojurescript-home? clojurescript-home))
+            (println "Error: The given ClojureScript home path '"
+                     clojurescript-home
+                     "' is not a ClojureScript installation "
+                     "(" cljsc-bin-path " is missing.)")
+            :else clojurescript-home))))
 
 (defn cljs-devmode
-  [project & [clojurescript-home mode]]
-  (if-let [error (check-clojurescript-home-param clojurescript-home)]
-    (println error)
+  [project & [mode clojurescript-home]]
+  (when-let [clojurescript-home (check-clojurescript-home-param clojurescript-home)]
     (if (and mode (not (= mode "start")))
-      (println "Error: The only supported mode at the moment is 'start', which starts the ClojureScript compiler process in another JVM from this JVM via Runtime/exec \"java.exe ...\" (you will not see the stdout or stderr of the ClojureScript compiler process).")
+      (binding [*out* *err*]
+        (println "Error: The only supported mode at the moment is 'start', which starts the ClojureScript compiler process in another JVM from this JVM via Runtime/exec \"java.exe ...\" (you will not see the stdout or stderr of the ClojureScript compiler process)."))
       (let [root-dir (:root project)
             dir (str root-dir "/cljs")
             project-name (:name project)
