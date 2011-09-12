@@ -19,10 +19,11 @@ After bootstrapping ClojureScript get cljs-devmode:
 
 In the cljs-devmode folder invoke:
 
-    lein cljs-devmode-bootstrap $CLOJURESCRIPT_HOME
+    lein cljs-devmode-bootstrap
 
 If you haven't set the $CLOJURESCRIPT_HOME environment variable yet,
-then use the full path to your ClojureScript installation.
+then pass the full path to your ClojureScript installation as the
+first command line argument.
 
 The cljs-devmode-bootstrap leiningen plugin copies all necessary jar
 files into the lib folder of $CLOJURESCRIPT_HOME to make this
@@ -62,7 +63,7 @@ Take a look at the
 [cljs-devmode-example](https://github.com/maxweber/cljs-devmode-example). In
 the project folder of cljs-devmode-example you can invoke:
 
-    lein cljs-devmode $CLOJURESCRIPT_HOME
+    lein cljs-devmode
 
 This generates a cljs-devmode.sh file in the project folder. The
 generated shell script starts the Clojure REPL in the
@@ -75,7 +76,7 @@ cljs-devmode-example project). So if you execute the cljs-devmode.sh
 script:
 
     chmod 755 cljs-devmode.sh 
-    ./cljs-devmode
+    ./cljs-devmode.sh
 
 Then the ClojureScript compiler and the cljs-devmode are started
 automatically.
@@ -123,7 +124,7 @@ generation of the .sh shell script is a little bit nasty ;-) You can
 also let the JVM process of leiningen start the ClojureScript
 compiler and the devmode via:
 
-    lein cljs-devmode $CLOJURESCRIPT_HOME start
+    lein cljs-devmode start
 
 But then you will not see the output (stdout and stderr) of the
 ClojureScript compiler and therefore you cannot read the helpful error

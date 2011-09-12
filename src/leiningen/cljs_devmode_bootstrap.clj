@@ -22,10 +22,10 @@
 
 (defn cljs-devmode-bootstrap
   [project & [clojurescript-path]]
-  (if-let [error (check-clojurescript-home-param clojurescript-path)]
-    (println error)
+  (when-let [clojurescript-path (check-clojurescript-home-param clojurescript-path)]
     (if-not (= (:name project) "cljs-devmode")
-      (println "Error: cljs-devmode-bootstrap must be invoked in the root folder of the cljs-devmode project (get the sources from GitHub: https://github.com/maxweber/cljs-devmode)")
+      (binding [*out* *err*]
+        (println "Error: cljs-devmode-bootstrap must be invoked in the root folder of the cljs-devmode project (get the sources from GitHub: https://github.com/maxweber/cljs-devmode)"))
       (do
         (deps project)
         (let [dest (dest-dir clojurescript-path)]
