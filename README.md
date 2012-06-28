@@ -15,7 +15,7 @@ ClojureScript (the bootstrap step is required)
 
 After bootstrapping ClojureScript get cljs-devmode:
       
-    git clone git@github.com:maxweber/cljs-devmode.git
+    git clone git://github.com/maxweber/cljs-devmode.git
 
 In the cljs-devmode folder invoke:
 
